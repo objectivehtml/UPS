@@ -31,17 +31,16 @@
 		)
 	);
 	
-	$destination = 33010; // Postal code for Miami, FL
+	$destination = '33010'; // Postal code for Miami, FL
 	
-	/*
-		OR use the long syntax for non-US locations
+	// OR use the long syntax for non-US locations
 		
-		$destination = array(
-			'state'        => 'FL',
-			'postal_code'  => 33010,
-			'country_code' => 'US""
-		);
-	*/
+	$destination = array(
+		'state'        => 'FL',
+		'postal_code'  => 33010,
+		'country_code' => 'US""
+	);
+
 
 ### Step 3. Get the live rates
 
