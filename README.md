@@ -85,13 +85,22 @@ The setters and getters are dynamic, and included by default in the library usin
 		'country_code' => 'US'
 	);
 	
-	$this->EE->load->library('Ups', array(
+	$auth_params = array(
 		'access_key'     => 'your-access-key',
 		'username'       => 'your-username',
 		'password'       => 'your-password',
 		'account_number' => 'your-account-number',
 		'origin' 	 	 => $origin
-	));
+	);
+	
+	// PHP
+	$Ups = new Ups($auth_params);
+	
+	// CodeIgniter
+	$this->CI->load->library('Ups', $auth_params);
+	
+	// ExpressionEngine
+	$this->EE->load->library('Ups', $auth_params);
 	
 #### Step 2. Set your destination and package data.
 
@@ -111,9 +120,10 @@ The setters and getters are dynamic, and included by default in the library usin
 		)
 	);
 	
+	// Define a destination with a 5 digit zip (US Only)	
 	$destination = '33010'; // Postal code for Miami, FL
 	
-	// OR use the long syntax for non-US locations	
+	// OR use the long syntax for non-US locations
 	$destination = array(
 		'state'        => 'FL',
 		'postal_code'  => '33010',
@@ -123,6 +133,13 @@ The setters and getters are dynamic, and included by default in the library usin
 
 #### Step 3. Get the live rates
 
+	// PHP
+	$rate = $Ups->get_rate($destination, $packages);
+	
+	// CodeIgniter
+	$rate = $this->CI->ups->get_rate($destination, $packages);
+	
+	// ExpressionEngine	
 	$rate = $this->EE->ups->get_rate($destination, $packages);
 
 ---
