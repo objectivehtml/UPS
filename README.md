@@ -1,6 +1,23 @@
-# UPS Live Rates
+# UPS API
 
-## Basic Usage
+#### Version 0.1.0
+
+#### About this Project
+
+So after searching around the Internet, it's apparent that there are no modern OOP UPS (United Parcel Service [www.ups.com](http://www.ups.com)) libraries. This project aims to provide a solid foundation for other developers to fork, contribute, and use for their own projects.
+
+#### License
+
+GNU GENERAL PUBLIC LICENSE - Refer to license.txt for details.
+
+#### Credits
+
+[CodeIgniter UPS Rate Tool](https://github.com/EllisLab/CodeIgniter/wiki/UPS-Rate-Tool) 
+
+This code was the only library I could find that was of any use was. I started from this code, and rewrote the majority of it. 
+
+
+## UPS Live Rates
 
 ### Step 1. Initialize the Library
 
