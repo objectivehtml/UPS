@@ -5,11 +5,9 @@
 ### Step 1. Initialize the Library
 
 	// Define your origin
-	
 	$origin = 'your-zipcode';
 	
 	// OR use the long syntax for non-US locations
-		
 	$origin = array(
 		'state'        => 'IN',
 		'postal_code'  => '46060',
@@ -21,13 +19,12 @@
 		'username'       => 'your-username',
 		'password'       => 'your-password',
 		'account_number' => 'your-account-number',
-		'origin' 	 	 => 'your-zipcode'
+		'origin' 	 	 => $origin
 	));
 	
 ### Step 2. Set your destination and package data.
 
 	// Height, width, depth are optional. Weight is required.
-	
 	$packages = array(
 		array(
 			'height' => 12,
@@ -45,8 +42,7 @@
 	
 	$destination = '33010'; // Postal code for Miami, FL
 	
-	// OR use the long syntax for non-US locations
-		
+	// OR use the long syntax for non-US locations	
 	$destination = array(
 		'state'        => 'FL',
 		'postal_code'  => '33010',
