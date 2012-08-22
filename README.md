@@ -1,4 +1,4 @@
-# UPS API
+# UPS (United Parcel Service) PHP API
 
 #### Version 0.1.0 (2012-08-22)
 
@@ -63,6 +63,10 @@ The setters and getters are dynamic, and included by default in the library usin
 # Live Shipping Rates
 
 	get_rates(mixed $destination, array $packages);
+
+**$destination** : An array containing address components or a 5 digit zipcode string.
+
+**$packages** : An array of arrays that contain indexes and values that give the packages weight and dimension.
 
 ### Features
 
