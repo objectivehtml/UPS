@@ -38,7 +38,7 @@
 	$destination = array(
 		'state'        => 'FL',
 		'postal_code'  => 33010,
-		'country_code' => 'US""
+		'country_code' => 'US'
 	);
 
 
