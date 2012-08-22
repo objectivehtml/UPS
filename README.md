@@ -4,6 +4,18 @@
 
 ### Step 1. Initialize the Library
 
+	// Define your origin
+	
+	$origin = 'your-zipcode';
+	
+	// OR use the long syntax for non-US locations
+		
+	$origin = array(
+		'state'        => 'IN',
+		'postal_code'  => '46060',
+		'country_code' => 'US'
+	);
+	
 	$this->EE->load->library('Ups', array(
 		'access_key'     => 'your-access-key',
 		'username'       => 'your-username',
@@ -37,7 +49,7 @@
 		
 	$destination = array(
 		'state'        => 'FL',
-		'postal_code'  => 33010,
+		'postal_code'  => '33010',
 		'country_code' => 'US'
 	);
 
