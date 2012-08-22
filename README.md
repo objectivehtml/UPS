@@ -4,7 +4,7 @@
 
 ---
 
-## Table Of Contents
+### Table Of Contents
 
 1. [About the Project](#abouttheproject)
 2. [Setters & Getters](#settersgetters)
@@ -14,7 +14,7 @@
 
 ---
 
-## About the Project
+### About the Project
 
 So after searching around the Internet, it's apparent that there are no modern OOP UPS (United Parcel Service [www.ups.com](http://www.ups.com)) libraries. This library aims to provide a solid foundation for other developers to fork, contribute, and use for their own projects when interacting with the UPS API.
 
@@ -22,11 +22,11 @@ So after searching around the Internet, it's apparent that there are no modern O
 
 ---
 
-## Setters & Getters
+### Setters & Getters
 
 The setters and getters are dynamic, and included by default in the library using PHP magic method. Meaning, you can set or get any object property using a memorable and consistent syntax.
 
-### Setters
+#### Setters
 
 *Setters are used to override default property values.*
 
@@ -43,7 +43,7 @@ The setters and getters are dynamic, and included by default in the library usin
 	$Ups->set_shipping_type('UPS Ground'); // OR use the service name
 
 
-### Getters
+#### Getters
 
 *Getters are used to retrieve property values.*
 
@@ -70,7 +70,7 @@ The setters and getters are dynamic, and included by default in the library usin
 3. Support multiple packages with unique sizes and weights
 4. Framework Agnostic. Great for CodeIgniter and Laravel
 
-## How to Use
+### How to Use
 
 ### Step 1. Initialize the Library
 
