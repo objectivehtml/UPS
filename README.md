@@ -6,9 +6,9 @@
 
 ### Table Of Contents
 
-1. [About the Project](#abouttheproject)
-2. [Setters & Getters](#settersgetters)
-3. [Live Shipping Rates](#liveshippingrates)
+1. [About the Project](#about-the-project)
+2. [Setters & Getters](#setters--getters)
+3. [Live Shipping Rates](#live-shipping-rates)
 4. [Credits](#credits)
 5. [License](#license)
 
