@@ -62,8 +62,9 @@ The setters and getters are dynamic, and included by default in the library usin
 
 # Live Shipping Rates
 
+	get_rates(mixed $destination, array $packages);
 
-## Features
+### Features
 
 1. Consistent and extendible API
 2. Support multiple countries (one for origin and another for destination)
@@ -72,7 +73,7 @@ The setters and getters are dynamic, and included by default in the library usin
 
 ### How to Use
 
-### Step 1. Initialize the Library
+#### Step 1. Initialize the Library
 
 	// Define your origin
 	$origin = 'your-zipcode';
@@ -92,7 +93,7 @@ The setters and getters are dynamic, and included by default in the library usin
 		'origin' 	 	 => $origin
 	));
 	
-### Step 2. Set your destination and package data.
+#### Step 2. Set your destination and package data.
 
 	// Height, width, depth are optional. Weight is required.
 	$packages = array(
@@ -120,18 +121,18 @@ The setters and getters are dynamic, and included by default in the library usin
 	);
 
 
-### Step 3. Get the live rates
+#### Step 3. Get the live rates
 
 	$rate = $this->EE->ups->get_rate($destination, $packages);
 
 ---
 
-## Credits
+### Credits
 
 The following URL contains the only library I could find that was of any use was for interacting with UPS. I started from this code, and removed all the hardcoded variables, added a proper setters/getters, and made the packaging system much more robust.[CodeIgniter UPS Rate Tool](https://github.com/EllisLab/CodeIgniter/wiki/UPS-Rate-Tool)
 
 ---
 
-## License
+### License
 
 GNU GENERAL PUBLIC LICENSE - Refer to license.txt for details.
