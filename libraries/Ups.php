@@ -1,14 +1,13 @@
 <?php
 
 /**
- * UPS Rat
+ * UPS API
  * 
- * @package		
  * @author		Justin Kimbrell
  * @copyright	Copyright (c) 2012, Objective HTML
  * @link 		http://www.objectivehtml.com/
- * @version		
- * @build		
+ * @version		0.1.0
+ * @build		20120822
  */
 
 class Ups
