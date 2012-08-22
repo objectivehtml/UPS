@@ -7,10 +7,11 @@
 ### Table Of Contents
 
 1. [About the Project](#about-the-project)
-2. [Setters & Getters](#setters--getters)
-3. [Live Shipping Rates](#live-shipping-rates)
-4. [Credits](#credits)
-5. [License](#license)
+2. [Features](#features)
+3. [Setters & Getters](#setters--getters)
+4. [Live Shipping Rates](#live-shipping-rates)
+5. [Credits](#credits)
+6. [License](#license)
 
 ---
 
@@ -19,6 +20,15 @@
 So after searching around the Internet, it's apparent that there are no modern OOP UPS (United Parcel Service [www.ups.com](http://www.ups.com)) libraries. This library aims to provide a solid foundation for other developers to fork, contribute, and use for their own projects when interacting with the UPS API.
 
 *While the live rates API is stable and is encouraged to be used, just know that this project is very early in development. While the goal is to support the entire API, it will take some time, especially since there are no quality examples to use. Please contribute with pull requests to speed things up!*
+
+---
+
+### Features
+
+1. Consistent and extendible API
+2. Live shipping rates between multiple countries
+3. Live shipping rates for multiple packages (with unique weights and dimensions)
+4. Framework Agnostic. Great for CodeIgniter and Laravel
 
 ---
 
@@ -67,13 +77,6 @@ The setters and getters are dynamic, and included by default in the library usin
 **$destination** : An array containing address components or a 5 digit zipcode string.
 
 **$packages** : An array of arrays that contain indexes and values that give the packages weight and dimension.
-
-### Features
-
-1. Consistent and extendible API
-2. Support multiple countries (one for origin and another for destination)
-3. Support multiple packages with unique sizes and weights
-4. Framework Agnostic. Great for CodeIgniter and Laravel
 
 ### How to Use
 
