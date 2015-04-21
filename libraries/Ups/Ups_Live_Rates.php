@@ -294,8 +294,12 @@ class Ups_Live_Rates extends Base_Ups
 
                 $outerElementName = $index;
                 foreach($components[$outerElementName] as $innerElement){
-                    if(isset($argLocation[$innerElement]) && !empty($argLocation[$innerElement])){
+
+                    //If we pass location address WITHOUT outer "address" element
+                    if(isset($argLocation[$innerElement])){
                         $location[$outerElementName][$innerElement] = $argLocation[$innerElement];
+                    } else if (isset($argLocation[$outerElementName][$innerElement])){
+                        $location[$outerElementName][$innerElement] = $argLocation[$outerElementName][$innerElement];
                     }
                 }
 
@@ -382,7 +386,7 @@ class Ups_Live_Rates extends Base_Ups
     public function set_shipper($var)
     {
     	$var = $var ? $var : $this->origin;
-    	
+
 	    $this->shipper = $this->build_location($var);
 	    $this->shipper = isset($this->shipper['address']) ? $this->shipper['address'] : $this->shipper;
     }
@@ -411,7 +415,8 @@ class Ups_Live_Rates extends Base_Ups
     public function get_rate($packages = array())
     {
     	$this->set_shipper($this->shipper);
-    	
+
+
         $residential_xml = '';
         $package_xml     = '';        
        
