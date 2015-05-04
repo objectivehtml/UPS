@@ -1,6 +1,6 @@
 {
   "autoload": {
-        "psr-4": {"Ups\\": "libraries/"}
+        "psr-4": {"Ups/": "libraries/"}
   }
  
 }
