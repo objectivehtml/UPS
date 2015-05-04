@@ -1,3 +1,6 @@
 {
-  
+  "autoload": {
+        "psr-4": {"Ups\\": "libraries/"}
+  }
+ 
 }
