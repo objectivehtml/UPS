@@ -1,4 +1,5 @@
 {
+    "name":"KoulSlou/UPS",
     "autoload": {
         "files": [
             "libraries/Ups/Ups.php",
