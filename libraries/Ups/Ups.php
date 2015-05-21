@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Ups_Base.php';
-require_once 'Ups_Live_Rates.php';
-
 class Ups extends Base_Ups {
 	
 	private $available_apis = array(
