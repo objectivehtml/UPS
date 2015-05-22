@@ -2,9 +2,9 @@
     "name":"KoulSlou/UPS",
     "autoload": {
         "files": [
-            "libraries/Ups/Ups.php",
             "libraries/Ups/Ups_Base.php",
             "libraries/Ups/Ups_Base_Response.php",
+            "libraries/Ups/Ups.php",
             "libraries/Ups/Ups_Live_Rates.php"
         ]
     }
