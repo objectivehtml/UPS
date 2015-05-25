@@ -62,4 +62,32 @@ class Ups_Rate
         }
 
     }
+    
+    
+    public function getCode()
+    {
+        return $this->_code;
+    }
+    
+    public function getPrice()
+    {
+        return $this->_price;
+    }
+    
+    public function getServiceName()
+    {
+        return $this->_serviceName;
+    }
+    
+    public function getDays()
+    {
+        return $this->_guaranteedDelivery;
+    }
+    
+    
+    
+    
+    
+    
+    
 }
