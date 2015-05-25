@@ -553,7 +553,7 @@ class Ups_Live_Rates extends Base_Ups
 
             
             $response->warnings = $warnings;
-            $response->rates     = $rates;
+            $response->setRates($rates);
         }
         else
         {
@@ -735,6 +735,13 @@ class Ups_Live_Rates_Response extends Base_UPS_Response {
 
     public function getRates()
     {
-        return $this->$_rates;
+        return $this->_rates;
+    }
+    
+    public function setRates($value)
+    {
+    	$this->_rates = $value;
+    }
+    
     }
 }
