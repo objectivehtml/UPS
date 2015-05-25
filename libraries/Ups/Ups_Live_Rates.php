@@ -743,5 +743,4 @@ class Ups_Live_Rates_Response extends Base_UPS_Response {
     	$this->_rates = $value;
     }
     
-    }
 }
