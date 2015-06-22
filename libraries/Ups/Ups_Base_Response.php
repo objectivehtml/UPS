@@ -95,6 +95,19 @@ abstract class Base_UPS_Response {
 		    }
 	    }
 	}
+
+
+    public function __set($name, $value)
+    {
+
+
+        if(property_exists($this, $name))
+            $this->{$name} = $value;
+        else if(property_exists($this, ("_".$name)))
+            $this->{"_".$name} = $value;
+        else
+            throw new Exception("Trying to set unexisting property ".$name);
+    }
 	
 	
 	/**

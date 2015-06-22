@@ -218,7 +218,7 @@ class Ups_Live_Rates extends Base_Ups
 	 * @var string
 	 */
 	 
-    protected $service_type = 'Rate';
+    protected $service_type = 'Shop';
     	
     	
     /**
@@ -244,13 +244,13 @@ class Ups_Live_Rates extends Base_Ups
     	parent::__construct($data);
     }
         
-    protected function build_location($var)
+    protected function build_location($argLocation)
     {
     	$components = array(
     		'company',
     		'attn',
-    		'phone', 
-    		'fax', 
+    		'phone',
+    		'fax',
     		'address' => array(
     			'street',
     			'street_2',
@@ -261,58 +261,52 @@ class Ups_Live_Rates extends Base_Ups
     			'country_code'
     		)
     	);
-    	
-	    if(!is_array($var) && !is_object($var) && preg_match('/\d{5}/', $var))
-	    {
-		    $var = array(
-		    	'address' => array(
-		    		'state'        => $this->get_state($var),
-		    		'postal_code'  => $var,
-		    		'country_code' => $this->country_code
-		    	)
-		    );
-	    }
-	    
-	    foreach($components as $index => $component)
-	    {		
-	    	$component_name = $component;
-	    	
-	    	$is_array = TRUE;
-	    	
-	    	if(!is_array($component))
-	    	{
-	    		$is_array  = FALSE;
-		    	$component = array($component);	
-	    	}
-	    	else
-	    	{
-		    	$component_name = $index;
-	    	}
-	    	
-	    	foreach($component as $sub_component)
-	    	{
-	    		$value = NULL;
-	    		
-				if(!isset($var[$sub_component]) && property_exists($this, $sub_component))
-				{
-					$value = $this->$sub_component;
-				}
-				
-				if(!empty($value))
-				{
-					if($is_array)
-					{
-						$var[$component_name][$sub_component] = $value;
-					}
-					else
-					{
-				    	$var[$sub_component] = $value;
-				    }
-			    }
-		    }   
-	    }
-	      
-	    return $var;
+
+
+        //If just zip code string is passed
+        if(is_string($argLocation))
+        {
+            if(!preg_match('/^\d{5}$/', $argLocation)){
+                throw new Exception("Bad format for zip code in ".__FUNCTION__."() function in class ".__CLASS__." on line ".__LINE__);
+            }
+
+            return array('address' => array(
+                'state' => $this->get_state($argLocation),
+                'postal_code' => $argLocation,
+                'country_code' => $this->country_code
+            ));
+
+        }
+
+
+        $location = array();
+
+        //If address passed in array format
+        foreach($components as $index=>$addrComponentName){
+
+            //Work with strings - company, attn, phone, fax
+            if(is_string($components[$index])){
+                if(isset($argLocation[$addrComponentName]) && !empty($argLocation[$addrComponentName])){
+                    $location[$addrComponentName] = $argLocation[$addrComponentName];
+                }
+            //Work with address inner components - street, city, state, postal_code, country_code
+            } elseif(is_array($components[$index])){
+
+                $outerElementName = $index;
+                foreach($components[$outerElementName] as $innerElement){
+
+                    //If we pass location address WITHOUT outer "address" element
+                    if(isset($argLocation[$innerElement])){
+                        $location[$outerElementName][$innerElement] = $argLocation[$innerElement];
+                    } else if (isset($argLocation[$outerElementName][$innerElement])){
+                        $location[$outerElementName][$innerElement] = $argLocation[$outerElementName][$innerElement];
+                    }
+                }
+
+            }
+
+        }
+        return $location;
     }
     
     protected function key($str)
@@ -392,7 +386,7 @@ class Ups_Live_Rates extends Base_Ups
     public function set_shipper($var)
     {
     	$var = $var ? $var : $this->origin;
-    	
+
 	    $this->shipper = $this->build_location($var);
 	    $this->shipper = isset($this->shipper['address']) ? $this->shipper['address'] : $this->shipper;
     }
@@ -421,7 +415,9 @@ class Ups_Live_Rates extends Base_Ups
     public function get_rate($packages = array())
     {
     	$this->set_shipper($this->shipper);
-    	
+
+
+
         $residential_xml = '';
         $package_xml     = '';        
        
@@ -501,7 +497,7 @@ class Ups_Live_Rates extends Base_Ups
                 <ShipmentServiceOptions>
                     <OnCallAir>
                         <Schedule>
-                            <PickupDay>{$this->ship_date}</PickupDay>
+                            <PickupDay>".time()."</PickupDay>
                         </Schedule>
                     </OnCallAir>
                 </ShipmentServiceOptions>
@@ -511,9 +507,9 @@ class Ups_Live_Rates extends Base_Ups
                 </RateInformation>
             </Shipment>
         </RatingServiceSelectionRequest>";
-        
+
         $result = $this->curl($data);
-        
+
         $xml = new SimpleXMLElement(strstr($result, '<?'));
 
         $response = new Ups_Live_Rates_Response(array(
@@ -528,34 +524,24 @@ class Ups_Live_Rates extends Base_Ups
         	'ship_date'		=> strtotime($this->ship_date),
         	'formatted_ship_date' => date($this->date_format, strtotime($this->ship_date))
         ));
-        
-        /*
-        $return = array(
-        	'origin'	  => (object) $this->origin,
-        	'destination' => (object) $destination,
-        	'success' => TRUE,
-        	'error'   => FALSE,
-        	'shipping_type' => $this->shipping_type,
-        	'package_type'  => $this->package_type,
-        	'pickup_type'   => $this->pickup_type,
-        	'residential'   => $this->residential,
-        	'service_type'  => $this->service_type,
-        	'ship_date'		=> strtotime($this->ship_date),
-        	'formatted_ship_date' => date($this->date_format, strtotime($this->ship_date))
-        );
-        */
-        
+
         if ($xml->Response->ResponseStatusCode == '1')
         {
+
         	$response->success();
         
             $data   = array();
             $warnings = array();
-            
+            $rates = array();
+
             foreach($xml->RatedShipment as $index => $service)
             {
+
+                $rates[] = new Ups_Rate($service);
+
                 $data[count($data)] = "{$service->TotalCharges->MonetaryValue}";
-                
+
+
                 if(isset($service->RatedShipmentWarning))
                 {
                 	foreach($service->RatedShipmentWarning as $warning)
@@ -564,25 +550,10 @@ class Ups_Live_Rates extends Base_Ups
                 	}
                 }
             }            
-            
-            asort($data);
-            
-            foreach($data as $key => $value)
-            {
-                $date = '';
-                   
-                $service = $xml->RatedShipment[$key]->children();
-                
-                if (!empty($service->GuaranteedDaysToDelivery))
-                {
-                    $date = date($this->date_format, strtotime($this->ship_date) + ($service->GuaranteedDaysToDelivery * 86400));
-                }
-                
-                $rate = number_format((double)($service->TotalCharges->MonetaryValue), 2);
-            }
+
             
             $response->warnings = $warnings;
-            $response->rate     = (double) $rate;
+            $response->setRates($rates);
         }
         else
         {
@@ -750,5 +721,26 @@ class Ups_Live_Rates_Response extends Base_UPS_Response {
 	 * @var array
 	 */
 	
-	public $formatted_ship_date; 
+	public $formatted_ship_date;
+
+    /**
+     *
+     * Delivery rate
+     *
+     * @var double
+     */
+
+    protected  $_rates;
+
+
+    public function getRates()
+    {
+        return $this->_rates;
+    }
+    
+    public function setRates($value)
+    {
+    	$this->_rates = $value;
+    }
+    
 }
